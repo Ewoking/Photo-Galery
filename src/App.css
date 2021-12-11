@@ -1,38 +1,254 @@
-.App {
-  text-align: center;
+/* FONTS */
+@import url("https://fonts.googleapis.com/css2?family=Cinzel&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Corinthia&display=swap");
+
+* {
+    margin: 0;
+    box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+:root {
+    --primary-color: #1d1e24;
+    /* --primary-color: #16161a; */
+    --secondary-color: #7a082a;
+    --text-color: white;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+body {
+    box-sizing: border-box;
+    background-color: var(--primary-color);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+/* ----- MOBILE ----- */
+
+/* -- HEADER -- */
+
+header {
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    position: relative;
 }
 
-.App-link {
-  color: #61dafb;
+header::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 3rem;
+    bottom: -3rem;
+    background-color: var(--secondary-color);
+    opacity: 0;
+    z-index: -1;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+header div {
+    width: 100%;
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    padding-bottom: 0;
+}
+
+header div h1 {
+    font-family: "Corinthia", cursive;
+    margin: 0;
+    padding-bottom: 0.2rem;
+    font-size: 3rem;
+    text-shadow: -0.5rem 0.4rem 0 var(--primary-color);
+}
+
+header div h2 {
+    font-family: "Cinzel", serif;
+    font-weight: normal;
+    font-size: 1.1rem;
+    margin: 0;
+    align-self: flex-end;
+}
+
+/* -- MAIN -- */
+
+main {
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+    padding-top: 3rem;
+    padding-bottom: 0;
+}
+
+/* -- COMPONENTS -- */
+
+/* - Gallery - */
+.gallery {
+    width: 100%;
+    color: white;
+    display: flex;
+    gap: 0.2rem;
+    justify-content: center;
+}
+
+.gallery-column {
+    box-sizing: content-box;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    gap: 0.2rem;
+    height: min-content;
+    width: 100%;
+}
+
+.static {
+    height: unset;
+}
+
+.static :last-child {
+    height: 5rem;
+    flex-grow: 1;
+    background-color: var(--secondary-color);
+}
+
+.gallery-column img {
+    width: 100%;
+    max-width: 100%;
+}
+
+.observer {
+    width: 100%;
+    height: 300px;
+    background-color: transparent;
+}
+
+/* - Scroll Up - */
+
+.scroll-up-container {
+    position: fixed;
+    width: 4rem;
+    height: 4rem;
+    bottom: 2rem;
+    right: 2rem;
+}
+
+.scroll-up {
+    background-color: rgba(0, 0, 0, 0.678);
+    border-radius: 100%;
+    display: flex;
+}
+
+.chevron-up > path {
+    fill: var(--secondary-color) !important;
+}
+
+/* - Slider - */
+
+.slider {
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 3;
+    padding: 5%;
+}
+
+.slider-image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slider-image {
+    object-fit: contain;
+    max-width: 100%;
+    max-height: 100%;
+    border: 0.2rem solid var(--primary-color);
+}
+
+.chevron-left-container,
+.chevron-right-container {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    top: 0;
+    background-color: rgba(0, 0, 0, 0.15);
+    opacity: 0;
+
+    transition: all 0.3s;
+}
+
+.chevron-left-container:hover,
+.chevron-right-container:hover {
+    box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.287);
+    opacity: 1;
+    filter: blur(1);
+    transition: all 0.3s;
+}
+
+.chevron-left-container {
+    left: 0;
+}
+
+.chevron-right-container {
+    right: 0;
+}
+
+.chevron-left,
+.chevron-right {
+    width: 2rem;
+    margin: 3rem;
+}
+
+.invisible {
+    display: none;
+}
+
+/* ----- DESKTOP ----- */
+
+@media screen and (min-width: 768px) {
+    /* --- HEADER --- */
+    header {
+        background-color: var(--secondary-color);
+        color: var(--text-color);
+        display: flex;
+        justify-content: center;
+        position: relative;
+    }
+
+    header div {
+        width: 70%;
+        display: flex;
+        flex-direction: initial;
+        justify-content: space-between;
+        align-items: flex-end;
+        padding-top: 2rem;
+    }
+
+    header div h2 {
+        font-size: 1.5rem;
+        padding-bottom: 1rem;
+    }
+    /* --- MAIN --- */
+
+    /* -- COMPONENTS -- */
+    /* - Gallery - */
+    .gallery {
+        width: 70%;
+    }
+
+    /* - Scroll Up - */
+
+    .scroll-up-container {
+        right: 7%;
+    }
+
+    /* - Slider - */
+    .chevron-left,
+    .chevron-right {
+        width: 3rem;
+        margin: 5rem;
+    }
 }
