@@ -5,7 +5,7 @@ import {ReactComponent as ChevronRight} from '../assets/others/chevron-right-sol
 const Slider = (props) => {
     const [displayedPicture, setDisplayedPicture] = useState(props.filename);
     const [currentPicture, setCurrentPicture] = useState(null);
-    let touchStart = 0;
+    let touchStart = null;
     
     const onClickLeft = (e) => {
         e?.stopPropagation();
@@ -24,7 +24,15 @@ const Slider = (props) => {
     const onHandleTouchStart = (e) => {
         e.preventDefault();
         e.stopPropagation();
-        touchStart = e.touches[0].clientX
+        if(e.touches[1]){
+            touchStart = null;
+            return;
+        }
+        touchStart = {
+            time: Date.now(),
+            x: e.touches[0].clientX,
+            y: e.touches[0].clientY
+        }
     }
     const onHandleTouchMove = (e) => {
         e.preventDefault();
@@ -33,16 +41,28 @@ const Slider = (props) => {
     const onHandleTouchEnd = (e) => {
         e.preventDefault();
         e.stopPropagation();
-        const drag =  e.changedTouches[0].clientX - touchStart;
 
-        if(Math.abs(drag) < 50) return props.closeSlider();
-        return (drag > 0) ? onClickLeft() : onClickRight();
+        // case start touch canceled for multiple touches at once
+        if(!touchStart) return touchStart = null;
+
+        const latDrag =  e.changedTouches[0].clientX - touchStart.x;
+        const verDrag = e.changedTouches[0].clientY - touchStart.y;
+        const eventTime = Date.now() - touchStart.time;
+        touchStart = null;
+
+        //prevent resting touch to trigger event
+        if(eventTime > 500) return;
+        // significant vertical motion ignored 
+        if(Math.abs(verDrag) > 20 && Math.abs(verDrag) > Math.abs(latDrag)) return;
+        
+        if(Math.abs(latDrag) < 20) return props.closeSlider();
+        return (latDrag > 0) ? onClickLeft() : onClickRight();
     }
 
     useEffect(() => {
         import('../assets/photos-original/' + displayedPicture)
         .then(pic => {
-            setCurrentPicture(pic.default)
+            setCurrentPicture(pic.default);
         })
     }, [displayedPicture])
 
