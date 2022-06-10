@@ -1,2 +1,0 @@
-(this["webpackJsonpgalerie-photo"]=this["webpackJsonpgalerie-photo"]||[]).push([[52],{71:function(e,t,p){"use strict";p.r(t),t.default=p.p+"static/media/F1000032.f8baef63.jpg"}}]);
-//# sourceMappingURL=52.88c0d6cf.chunk.js.map
