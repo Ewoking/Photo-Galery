@@ -60,6 +60,7 @@ const Slider = (props) => {
     }
 
     useEffect(() => {
+        //import('../assets/photos-original/' + displayedPicture)
         import('../assets/photos-original/' + displayedPicture)
         .then(pic => {
             setCurrentPicture(pic.default);

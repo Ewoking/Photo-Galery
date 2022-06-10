@@ -87,6 +87,8 @@ const Gallery = (props) => {
         }
 
         const addPicture = async (columnNumber, filename) => {
+            let imageContainer = document.createElement('div');
+            imageContainer.classList.add('image-container');
             let img = document.createElement('img');
             let picture = await import(`../assets/photos/${filename}`);
             
@@ -94,8 +96,9 @@ const Gallery = (props) => {
             img.src = picture.default;
             img.onclick = () => setSliderPicture(filename);
             
+            imageContainer.appendChild(img);
             let parentNode = document.querySelector(`.column-${columnNumber}`);
-            parentNode.insertBefore(img, parentNode.lastChild);
+            parentNode.insertBefore(imageContainer, parentNode.lastChild);
         }
 
         let filename = filenames[loadedPictures.length];

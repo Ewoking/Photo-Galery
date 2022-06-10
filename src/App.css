@@ -94,8 +94,8 @@ main {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
-    align-items: flex-start;
-    gap: 0.2rem;
+    align-items: center;
+    /* gap: 0.1rem; */
     height: min-content;
     width: 100%;
 }
@@ -104,15 +104,25 @@ main {
     height: unset;
 }
 
-.static :last-child {
+.static > :last-child {
     height: 5rem;
     flex-grow: 1;
     background-color: var(--secondary-color);
 }
 
+.image-container {
+    overflow: hidden;
+}
+
 .gallery-column img {
     width: 100%;
     max-width: 100%;
+    scale: 1;
+    transition: all 1s ease-in-out;
+}
+
+.gallery-column img:hover {
+    scale: 1.5;
 }
 
 .observer {
@@ -158,6 +168,7 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin: 0 auto; /*new change ?...*/
 }
 
 .slider-image {
